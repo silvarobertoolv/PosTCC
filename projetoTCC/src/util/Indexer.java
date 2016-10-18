@@ -6,6 +6,7 @@
 package util;
 
 import java.io.*;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import org.apache.lucene.analysis.Analyzer;
@@ -84,17 +85,34 @@ public class Indexer {
      * You have to index its text values to the index.
      * It would be more better if this was in another class.
      * I am lazy you know all.
-     * @param f
+     * @param 
      * @return
      * @throws FileNotFoundException
      * @throws IOException 
      */
     public String getAllText(File f) throws FileNotFoundException, IOException {
         String textFileContent = "";
-
+/*
         for (String line : Files.readAllLines(Paths.get(f.getAbsolutePath()))) {
             textFileContent += line;
         }
+
+*/  
+//System.out.println(f.getAbsolutePath());
+        
+        FileInputStream fis = new FileInputStream(f);
+ 
+	//Construct BufferedReader from InputStreamReader
+	BufferedReader br = new BufferedReader(new InputStreamReader(fis));
+ 
+	String line = null;
+	while ((line = br.readLine()) != null) {
+		System.out.println(line);
+                textFileContent+=line;
+	}
+      //   System.out.println("valor:" + textFileContent);
+	br.close();
+     //   System.out.println("valor:" + textFileContent);
         return textFileContent;
     }
 }
